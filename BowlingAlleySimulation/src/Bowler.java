@@ -35,11 +35,11 @@ public class Bowler {
     }
 
 
-    public String getNickName() {
-
-        return nickName;  
-
-    }
+//    public String getNickName() {
+//
+//        return nickName;  
+//
+//    }
 
 	public String getFullName ( ) {
 			return fullName;
