@@ -57,6 +57,11 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 
 		partyPanel.add( memberList );
 
+		UiChanges(colPanel, partyPanel);
+
+	}
+	
+	public void UiChanges(JPanel colPanel, JPanel partyPanel) {
 		// Button Panel
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(2, 1));
@@ -90,9 +95,8 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 			((screenSize.width) / 2) - ((win.getSize().width) / 2),
 			((screenSize.height) / 2) - ((win.getSize().height) / 2));
 		win.show();
-
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(printButton)) {		
 			//Add selected to the vector.
