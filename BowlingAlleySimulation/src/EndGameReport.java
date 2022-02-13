@@ -20,7 +20,6 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 	private JFrame win;
 	private JButton printButton, finished;
 	private JList memberList;
-	private Vector myVector;
 	private Vector retVal;
 
 	private int result;
@@ -59,11 +58,8 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		partyPanel.add( memberList );
 
 		// Button Panel
-		// Button Panel
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(2, 1));
-
-		Insets buttonMargin = new Insets(4, 4, 4, 4);
 
 		printButton = new JButton("Print Report");
 		JPanel printButtonPanel = new JPanel();
