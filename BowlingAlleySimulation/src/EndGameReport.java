@@ -131,7 +131,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		win.hide();
 	}
 
-	public static void main( String args[] ) {
+	/*public static void main( String args[] ) {
 		Vector bowlers = new Vector();
 		for ( int i=0; i<4; i++ ) {
 			bowlers.add( new Bowler( "aaaaa", "aaaaa", "aaaaa" ) );
@@ -139,7 +139,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		Party party = new Party( bowlers );
 		String partyName="wank";
 		EndGameReport e = new EndGameReport( partyName, party );
-	}
+	}*/
 	
 }
 
