@@ -27,6 +27,35 @@ class BowlerFile {
 	/** The location of the bowelr database */
 	private static String BOWLER_DAT = "C:\\Users\\Sudipta Halder\\git\\BowlingAlleySimulation\\BowlingAlleySimulation\\src\\BOWLERS.DAT";
 
+    
+    /**
+     * Retrieves a matching Bowler from the bowler database.
+     *
+     * @param nickName	The NickName of the Bowler
+     *
+     * @return a Bowler object.
+     *
+     */
+
+	public static Bowler registerPatron(String nickName) {
+		Bowler patron = null;
+
+		try {
+			// only one patron / nick.... no dupes, no checks
+
+			patron = BowlerFile.getBowlerInfo(nickName);
+
+		} catch (FileNotFoundException e) {
+			System.err.println("Error..." + e);
+		} catch (IOException e) {
+			System.err.println("Error..." + e);
+		}
+
+		return patron;
+	}
+	
+	
+
     /**
      * Retrieves bowler information from the database and returns a Bowler objects with populated fields.
      *
