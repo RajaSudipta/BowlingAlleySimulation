@@ -66,6 +66,8 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(2, 1));
 
+		Insets buttonMargin = new Insets(4, 4, 4, 4);
+
 		printButton = new JButton("Print Report");
 		JPanel printButtonPanel = new JPanel();
 		printButtonPanel.setLayout(new FlowLayout());
