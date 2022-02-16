@@ -53,6 +53,14 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 	private String selectedNick, selectedMember;
 
+	public JPanel getPanel(JButton curbutton)
+	{
+		JPanel curbuttonPanel = new JPanel();
+		curbuttonPanel.setLayout(new FlowLayout());
+		curbutton.addActionListener(this);
+		curbuttonPanel.add(curbutton);
+		return curbuttonPanel;
+	}
 	public AddPartyView(ControlDeskView controlDesk, int max) {
 
 		this.controlDesk = controlDesk;
@@ -108,34 +116,46 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 
-		addPatron = new JButton("Add to Party");
+		/*addPatron = new JButton("Add to Party");
 		JPanel addPatronPanel = new JPanel();
 		addPatronPanel.setLayout(new FlowLayout());
 		addPatron.addActionListener(this);
-		addPatronPanel.add(addPatron);
+		addPatronPanel.add(addPatron);*/
 
-		remPatron = new JButton("Remove Member");
+		/*remPatron = new JButton("Remove Member");
 		JPanel remPatronPanel = new JPanel();
 		remPatronPanel.setLayout(new FlowLayout());
 		remPatron.addActionListener(this);
-		remPatronPanel.add(remPatron);
+		remPatronPanel.add(remPatron);*/
 
-		newPatron = new JButton("New Patron");
+		/*newPatron = new JButton("New Patron");
 		JPanel newPatronPanel = new JPanel();
 		newPatronPanel.setLayout(new FlowLayout());
 		newPatron.addActionListener(this);
-		newPatronPanel.add(newPatron);
+		newPatronPanel.add(newPatron);*/
 
-		finished = new JButton("Finished");
+		/*finished = new JButton("Finished");
 		JPanel finishedPanel = new JPanel();
 		finishedPanel.setLayout(new FlowLayout());
 		finished.addActionListener(this);
-		finishedPanel.add(finished);
+		finishedPanel.add(finished);*/
 
-		buttonPanel.add(addPatronPanel);
-		buttonPanel.add(remPatronPanel);
-		buttonPanel.add(newPatronPanel);
-		buttonPanel.add(finishedPanel);
+		addPatron = new JButton("Add to Party");
+		buttonPanel.add(getPanel(addPatron));
+		
+		remPatron = new JButton("Remove Member");
+		buttonPanel.add(getPanel(remPatron));
+		
+		newPatron = new JButton("New Patron");
+		buttonPanel.add(getPanel(newPatron));
+		
+		finished = new JButton("Finished");
+		buttonPanel.add(getPanel(finished));
+		
+		//buttonPanel.add(addPatronPanel);
+		//buttonPanel.add(remPatronPanel);
+		//buttonPanel.add(newPatronPanel);
+		//buttonPanel.add(finishedPanel);
 
 		// Clean up main panel
 		colPanel.add(partyPanel);
