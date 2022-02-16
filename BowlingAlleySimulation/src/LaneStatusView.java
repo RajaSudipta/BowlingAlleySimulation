@@ -94,6 +94,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		buttonPanel.add(getPanel(viewPinSetter));
 		
 		maintenance = new JButton("     ");
+		maintenance.setBackground( Color.GREEN );
 		buttonPanel.add(getPanel(maintenance));
 
 		viewLane.setEnabled( false );
