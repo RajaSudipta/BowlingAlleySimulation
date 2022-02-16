@@ -28,6 +28,15 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 	boolean laneShowing;
 	boolean psShowing;
 
+	public JPanel getPanel(JButton curbutton)
+	{
+		JPanel curbuttonPanel = new JPanel();
+		curbuttonPanel.setLayout(new FlowLayout());
+		curbutton.addActionListener(this);
+		curbuttonPanel.add(curbutton);
+		return curbuttonPanel;
+	}
+	
 	public LaneStatusView(Lane lane, int laneNum ) {
 
 		this.lane = lane;
@@ -59,7 +68,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 
-		viewLane = new JButton("View Lane");
+		/*viewLane = new JButton("View Lane");
 		JPanel viewLanePanel = new JPanel();
 		viewLanePanel.setLayout(new FlowLayout());
 		viewLane.addActionListener(this);
@@ -76,15 +85,26 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		JPanel maintenancePanel = new JPanel();
 		maintenancePanel.setLayout(new FlowLayout());
 		maintenance.addActionListener(this);
-		maintenancePanel.add(maintenance);
+		maintenancePanel.add(maintenance);*/
+		
+		viewLane = new JButton("View Lane");
+		buttonPanel.add(getPanel(viewLane));
+		
+		viewPinSetter = new JButton("Pinsetter");
+		buttonPanel.add(getPanel(viewPinSetter));
+		
+		maintenance = new JButton("     ");
+		buttonPanel.add(getPanel(maintenance));
 
 		viewLane.setEnabled( false );
 		viewPinSetter.setEnabled( false );
 
 
-		buttonPanel.add(viewLanePanel);
+		/*buttonPanel.add(viewLanePanel);
 		buttonPanel.add(viewPinSetterPanel);
-		buttonPanel.add(maintenancePanel);
+		buttonPanel.add(maintenancePanel);*/
+		
+		
 
 		jp.add( cLabel );
 		jp.add( curBowler );
