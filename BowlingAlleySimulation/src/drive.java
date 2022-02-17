@@ -10,9 +10,11 @@ public class drive {
 
 		Alley a = new Alley( numLanes );
 		ControlDesk controlDesk = a.getControlDesk();
+		ControlDeskSubscriber cds=new ControlDeskSubscriber();
 
 		ControlDeskView cdv = new ControlDeskView( controlDesk, maxPatronsPerParty);
-		controlDesk.subscribe( cdv );
+//		controlDesk.subscribe( cdv );
+		cds.subscribe(cdv);
 
 	}
 }
