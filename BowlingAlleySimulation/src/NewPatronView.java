@@ -40,6 +40,22 @@ public class NewPatronView implements ActionListener {
 	private String selectedNick, selectedMember;
 	private AddPartyView addParty;
 
+	public JPanel getPanel(JButton curbutton)
+	{
+		JPanel curbuttonPanel = new JPanel();
+		curbuttonPanel.setLayout(new FlowLayout());
+		curbutton.addActionListener(this);
+		curbuttonPanel.add(curbutton);
+		return curbuttonPanel;
+	}
+	public JPanel getFieldPanel(String label, JPanel curPanel, JLabel curLabel, JTextField curField)
+	{
+		curPanel.setLayout(new FlowLayout());
+		curPanel.add(curLabel);
+		curPanel.add(curField);
+		return curPanel;
+	}
+	
 	public NewPatronView(AddPartyView v) {
 
 		addParty=v;	
@@ -57,7 +73,7 @@ public class NewPatronView implements ActionListener {
 		patronPanel.setLayout(new GridLayout(3, 1));
 		patronPanel.setBorder(new TitledBorder("Your Info"));
 
-		JPanel nickPanel = new JPanel();
+		/*JPanel nickPanel = new JPanel();
 		nickPanel.setLayout(new FlowLayout());
 		nickLabel = new JLabel("Nick Name");
 		nickField = new JTextField("", 15);
@@ -80,7 +96,23 @@ public class NewPatronView implements ActionListener {
 
 		patronPanel.add(nickPanel);
 		patronPanel.add(fullPanel);
-		patronPanel.add(emailPanel);
+		patronPanel.add(emailPanel);*/
+		
+		JPanel nickPanel = new JPanel();
+		nickLabel = new JLabel("Nick Name");
+		nickField = new JTextField("", 15);
+		patronPanel.add(getFieldPanel("Nick Name",nickPanel,nickLabel,nickField));
+		
+		JPanel fullPanel = new JPanel();
+		fullLabel = new JLabel("Full Name");
+		fullField = new JTextField("", 15);
+		patronPanel.add(getFieldPanel("Full Name",fullPanel,fullLabel,fullField));
+		
+		JPanel emailPanel = new JPanel();
+		emailLabel = new JLabel("E-Mail");
+		emailField = new JTextField("", 15);
+		patronPanel.add(getFieldPanel("E-Mail",emailPanel,emailLabel,emailField));
+		
 
 		// Button Panel
 		JPanel buttonPanel = new JPanel();
@@ -88,7 +120,7 @@ public class NewPatronView implements ActionListener {
 
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 
-		finished = new JButton("Add Patron");
+		/*finished = new JButton("Add Patron");
 		JPanel finishedPanel = new JPanel();
 		finishedPanel.setLayout(new FlowLayout());
 		finished.addActionListener(this);
@@ -101,7 +133,12 @@ public class NewPatronView implements ActionListener {
 		abortPanel.add(abort);
 
 		buttonPanel.add(abortPanel);
-		buttonPanel.add(finishedPanel);
+		buttonPanel.add(finishedPanel);*/
+		
+		finished = new JButton("Add Patron");
+		abort = new JButton("Abort");
+		buttonPanel.add(getPanel(abort));
+		buttonPanel.add(getPanel(finished));
 
 		// Clean up main panel
 		colPanel.add(patronPanel, "Center");
