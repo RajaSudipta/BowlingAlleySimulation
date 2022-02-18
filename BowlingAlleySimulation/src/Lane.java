@@ -563,9 +563,10 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * 
 	 * @return true if the game is done, false otherwise
 	 */
-	public boolean isGameFinished() {
-		return gameFinished;
-	}
+	/* Can remove */
+//	public boolean isGameFinished() {
+//		return gameFinished;
+//	}
 
 	/* Can be removed subscribe, unsubscribe, publish */
 //	/** subscribe

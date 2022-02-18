@@ -17,8 +17,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
-
 import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
@@ -162,7 +160,6 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	 * @param e	the ActionEvent that triggered the handler
 	 *
 	 */
-
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(addParty)) {
 			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
