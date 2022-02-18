@@ -21,7 +21,15 @@ public class EndGamePrompt implements ActionListener {
 	private JButton yesButton, noButton;
 
 	private int result;
-
+	
+	public JPanel getPanel(JButton curbutton)
+	{
+		JPanel curbuttonPanel = new JPanel();
+		curbuttonPanel.setLayout(new FlowLayout());
+		curbutton.addActionListener(this);
+		curbuttonPanel.add(curbutton);
+		return curbuttonPanel;
+	}
 	public EndGamePrompt( String partyName ) {
 
 		result =0;
@@ -53,7 +61,7 @@ public class EndGamePrompt implements ActionListener {
 		
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 		
-		yesButton = new JButton("Yes");
+		/*yesButton = new JButton("Yes");
 		JPanel yesButtonPanel = new JPanel();
 		yesButtonPanel.setLayout(new FlowLayout());
 		yesButton.addActionListener(this);
@@ -66,8 +74,15 @@ public class EndGamePrompt implements ActionListener {
 		noButtonPanel.add(noButton);
 
 		buttonPanel.add(yesButton);
-		buttonPanel.add(noButton);
-
+		buttonPanel.add(noButton);*/
+		
+		yesButton = new JButton("Yes");
+		buttonPanel.add(getPanel(yesButton));
+		
+		noButton = new JButton("No");
+		buttonPanel.add(getPanel(noButton));
+		
+		
 		// Clean up main panel
 		colPanel.add(labelPanel);
 		colPanel.add(buttonPanel);
