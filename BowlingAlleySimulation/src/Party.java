@@ -48,5 +48,25 @@ public class Party {
     public Vector getMembers() {
 		return myBowlers;
     }
-
+    
+    public String getPartyName() {
+    	return ((Bowler) myBowlers.get(0)).getNick();
+    }
+    
+    public int getPartySize() {
+    	return myBowlers.size();
+    }
+    
+    public String getPartyMemberNickname(Bowler b) {
+    	return b.getNick();
+    }
+    
+    public String getPartyMemberFullname(Bowler b) {
+    	return b.getFullName();
+    }
+    
+    public String getPartyMemberEmail(Bowler b) {
+    	return b.getEmail();
+    }
+    
 }
