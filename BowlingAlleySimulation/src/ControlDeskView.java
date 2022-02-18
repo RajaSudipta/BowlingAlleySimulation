@@ -17,8 +17,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
-
 import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
@@ -108,7 +106,9 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		while (it.hasNext()) {
 			Lane curLane = (Lane) it.next();
 			LaneStatusView laneStat = new LaneStatusView(curLane,(laneCount+1));
-			curLane.subscribe(laneStat);
+			/* can be removed */
+//			curLane.subscribe(laneStat);
+			LaneSubscriber.subscribe(curLane,laneStat);
 			((Pinsetter)curLane.getPinsetter()).subscribe(laneStat);
 			JPanel lanePanel = laneStat.showLane();
 			lanePanel.setBorder(new TitledBorder("Lane" + ++laneCount ));
@@ -164,7 +164,6 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	 * @param e	the ActionEvent that triggered the handler
 	 *
 	 */
-
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(addParty)) {
 			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
