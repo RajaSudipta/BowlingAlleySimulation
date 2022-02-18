@@ -62,7 +62,7 @@ public class LaneEvent {
 		return score;
 	}
 
-
+	
 	public int[] getCurScores(){ 
 		return curScores;
 	}
@@ -70,7 +70,7 @@ public class LaneEvent {
 	public int getIndex() {
 		return index;
 	}
-
+	
 	public int getFrame( ) {
 		return frame;
 	}

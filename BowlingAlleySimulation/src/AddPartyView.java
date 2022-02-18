@@ -32,7 +32,6 @@ import javax.swing.border.*;
 import javax.swing.event.*;
 
 import java.util.*;
-import java.text.*;
 
 /**
  * Constructor for GUI used to Add Parties to the waiting party queue.
@@ -208,7 +207,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
  * Handler for List actions
  * @param e the ListActionEvent that triggered the handler
  */
-
+	
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getSource().equals(allBowlers)) {
 			selectedNick =
@@ -224,9 +223,10 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
  * Accessor for Party
  */
 
-	public Vector getNames() {
-		return party;
-	}
+	/* Can be removed, not used */
+//	public Vector getNames() {
+//		return party;
+//	}
 
 /**
  * Called by NewPatronView to notify AddPartyView to update

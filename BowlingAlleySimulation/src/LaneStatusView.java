@@ -9,8 +9,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
 
 public class LaneStatusView implements ActionListener, LaneObserver, PinsetterObserver {
 
@@ -50,8 +48,10 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		ps.subscribe(psv);
 
 		lv = new LaneView( lane, laneNum );
-		lane.subscribe(lv);
-
+		
+		/* This can be removed */
+//		lane.subscribe(lv);
+		LaneSubscriber.subscribe(lane,lv);
 
 		jp = new JPanel();
 		jp.setLayout(new FlowLayout());

@@ -41,7 +41,6 @@
  */
 
 import java.util.*;
-import java.io.*;
 
 class ControlDesk extends Thread {
 
@@ -55,7 +54,7 @@ class ControlDesk extends Thread {
 	private int numLanes;
 	
 	/** The collection of subscribers */
-	private Vector subscribers;
+	private ControlDeskSubscriber subscribers;
 
     /**
      * Constructor for the ControlDesk class
@@ -69,7 +68,7 @@ class ControlDesk extends Thread {
 		lanes = new HashSet(numLanes);
 		partyQueue = new Queue();
 
-		subscribers = new Vector();
+		subscribers = new ControlDeskSubscriber();
 
 		for (int i = 0; i < numLanes; i++) {
 			lanes.add(new Lane());
@@ -112,15 +111,17 @@ class ControlDesk extends Thread {
 				curLane.assignParty(((Party) partyQueue.next()));
 			}
 		}
-		publish(new ControlDeskEvent(getPartyQueue()));
+//		publish(new ControlDeskEvent(getPartyQueue()));
+		subscribers.publish(new ControlDeskEvent(getPartyQueue()));
 	}
 
     /**
      */
 
-	public void viewScores(Lane ln) {
-		// TODO: attach a LaneScoreView object to that lane
-	}
+	/* can be removed */
+//	public void viewScores(Lane ln) {
+//		// TODO: attach a LaneScoreView object to that lane
+//	}
 
     /**
      * Creates a party from a Vector of nickNAmes and adds them to the wait queue.
@@ -137,7 +138,8 @@ class ControlDesk extends Thread {
 		}
 		Party newParty = new Party(partyBowlers);
 		partyQueue.add(newParty);
-		publish(new ControlDeskEvent(getPartyQueue()));
+//		publish(new ControlDeskEvent(getPartyQueue()));
+		subscribers.publish(new ControlDeskEvent(getPartyQueue()));
 	}
 
     /**
@@ -170,34 +172,34 @@ class ControlDesk extends Thread {
 		return numLanes;
 	}
 
-    /**
-     * Allows objects to subscribe as observers
-     * 
-     * @param adding	the ControlDeskObserver that will be subscribed
-     *
-     */
-
-	public void subscribe(ControlDeskObserver adding) {
-		subscribers.add(adding);
-	}
-
-    /**
-     * Broadcast an event to subscribing objects.
-     * 
-     * @param event	the ControlDeskEvent to broadcast
-     *
-     */
-
-	public void publish(ControlDeskEvent event) {
-		Iterator eventIterator = subscribers.iterator();
-		while (eventIterator.hasNext()) {
-			(
-				(ControlDeskObserver) eventIterator
-					.next())
-					.receiveControlDeskEvent(
-				event);
-		}
-	}
+//    /**
+//     * Allows objects to subscribe as observers
+//     * 
+//     * @param adding	the ControlDeskObserver that will be subscribed
+//     *
+//     */
+//
+//	public void subscribe(ControlDeskObserver adding) {
+//		subscribers.add(adding);
+//	}
+//
+//    /**
+//     * Broadcast an event to subscribing objects.
+//     * 
+//     * @param event	the ControlDeskEvent to broadcast
+//     *
+//     */
+//
+//	public void publish(ControlDeskEvent event) {
+//		Iterator eventIterator = subscribers.iterator();
+//		while (eventIterator.hasNext()) {
+//			(
+//				(ControlDeskObserver) eventIterator
+//					.next())
+//					.receiveControlDeskEvent(
+//				event);
+//		}
+//	}
 
     /**
      * Accessor method for lanes

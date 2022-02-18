@@ -10,7 +10,6 @@ import java.util.*;
 
 public class LaneView implements LaneObserver, ActionListener {
 
-	private int roll;
 	private boolean initDone = true;
 
 	JFrame frame;
