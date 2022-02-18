@@ -40,21 +40,21 @@ public class NewPatronView implements ActionListener {
 	private String selectedNick, selectedMember;
 	private AddPartyView addParty;
 
-	public JPanel getPanel(JButton curbutton)
+	/*public JPanel getPanel(JButton curbutton)
 	{
 		JPanel curbuttonPanel = new JPanel();
 		curbuttonPanel.setLayout(new FlowLayout());
 		curbutton.addActionListener(this);
 		curbuttonPanel.add(curbutton);
 		return curbuttonPanel;
-	}
-	public JPanel getFieldPanel(String label, JPanel curPanel, JLabel curLabel, JTextField curField)
+	}*/
+	/*public JPanel getFieldPanel(String label, JPanel curPanel, JLabel curLabel, JTextField curField)
 	{
 		curPanel.setLayout(new FlowLayout());
 		curPanel.add(curLabel);
 		curPanel.add(curField);
 		return curPanel;
-	}
+	}*/
 	
 	public NewPatronView(AddPartyView v) {
 
@@ -101,17 +101,17 @@ public class NewPatronView implements ActionListener {
 		JPanel nickPanel = new JPanel();
 		nickLabel = new JLabel("Nick Name");
 		nickField = new JTextField("", 15);
-		patronPanel.add(getFieldPanel("Nick Name",nickPanel,nickLabel,nickField));
+		patronPanel.add(UIComponents.getFieldPanel("Nick Name",nickPanel,nickLabel,nickField));
 		
 		JPanel fullPanel = new JPanel();
 		fullLabel = new JLabel("Full Name");
 		fullField = new JTextField("", 15);
-		patronPanel.add(getFieldPanel("Full Name",fullPanel,fullLabel,fullField));
+		patronPanel.add(UIComponents.getFieldPanel("Full Name",fullPanel,fullLabel,fullField));
 		
 		JPanel emailPanel = new JPanel();
 		emailLabel = new JLabel("E-Mail");
 		emailField = new JTextField("", 15);
-		patronPanel.add(getFieldPanel("E-Mail",emailPanel,emailLabel,emailField));
+		patronPanel.add(UIComponents.getFieldPanel("E-Mail",emailPanel,emailLabel,emailField));
 		
 
 		// Button Panel
@@ -137,8 +137,10 @@ public class NewPatronView implements ActionListener {
 		
 		finished = new JButton("Add Patron");
 		abort = new JButton("Abort");
-		buttonPanel.add(getPanel(abort));
-		buttonPanel.add(getPanel(finished));
+		finished.addActionListener(this);
+		abort.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(abort));
+		buttonPanel.add(UIComponents.getPanel(finished));
 
 		// Clean up main panel
 		colPanel.add(patronPanel, "Center");
@@ -149,11 +151,12 @@ public class NewPatronView implements ActionListener {
 		win.pack();
 
 		// Center Window on Screen
-		Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
+		/*Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
 		win.setLocation(
 			((screenSize.width) / 2) - ((win.getSize().width) / 2),
 			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();
+		win.show();*/
+		UIComponents.SetWindow(win);
 
 	}
 

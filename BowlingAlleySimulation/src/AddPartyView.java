@@ -53,14 +53,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 	private String selectedNick, selectedMember;
 
-	public JPanel getPanel(JButton curbutton)
-	{
-		JPanel curbuttonPanel = new JPanel();
-		curbuttonPanel.setLayout(new FlowLayout());
-		curbutton.addActionListener(this);
-		curbuttonPanel.add(curbutton);
-		return curbuttonPanel;
-	}
+	
 	public AddPartyView(ControlDeskView controlDesk, int max) {
 
 		this.controlDesk = controlDesk;
@@ -120,42 +113,46 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		JPanel addPatronPanel = new JPanel();
 		addPatronPanel.setLayout(new FlowLayout());
 		addPatron.addActionListener(this);
-		addPatronPanel.add(addPatron);*/
+		addPatronPanel.add(addPatron);
 
-		/*remPatron = new JButton("Remove Member");
+		remPatron = new JButton("Remove Member");
 		JPanel remPatronPanel = new JPanel();
 		remPatronPanel.setLayout(new FlowLayout());
 		remPatron.addActionListener(this);
-		remPatronPanel.add(remPatron);*/
+		remPatronPanel.add(remPatron);
 
-		/*newPatron = new JButton("New Patron");
+		newPatron = new JButton("New Patron");
 		JPanel newPatronPanel = new JPanel();
 		newPatronPanel.setLayout(new FlowLayout());
 		newPatron.addActionListener(this);
-		newPatronPanel.add(newPatron);*/
+		newPatronPanel.add(newPatron);
 
-		/*finished = new JButton("Finished");
+		finished = new JButton("Finished");
 		JPanel finishedPanel = new JPanel();
 		finishedPanel.setLayout(new FlowLayout());
 		finished.addActionListener(this);
 		finishedPanel.add(finished);*/
 
 		addPatron = new JButton("Add to Party");
-		buttonPanel.add(getPanel(addPatron));
+		addPatron.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(addPatron));
 		
 		remPatron = new JButton("Remove Member");
-		buttonPanel.add(getPanel(remPatron));
+		remPatron.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(remPatron));
 		
 		newPatron = new JButton("New Patron");
-		buttonPanel.add(getPanel(newPatron));
+		newPatron.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(newPatron));
 		
 		finished = new JButton("Finished");
-		buttonPanel.add(getPanel(finished));
+		finished.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(finished));
 		
-		//buttonPanel.add(addPatronPanel);
-		//buttonPanel.add(remPatronPanel);
-		//buttonPanel.add(newPatronPanel);
-		//buttonPanel.add(finishedPanel);
+		/*buttonPanel.add(addPatronPanel);
+		buttonPanel.add(remPatronPanel);
+		buttonPanel.add(newPatronPanel);
+		buttonPanel.add(finishedPanel);*/
 
 		// Clean up main panel
 		colPanel.add(partyPanel);
@@ -163,15 +160,18 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		colPanel.add(buttonPanel);
 
 		win.getContentPane().add("Center", colPanel);
+		
+		//win.getContentPane().add("Center", getcolpanel(colPanel));
 
 		win.pack();
 
 		// Center Window on Screen
-		Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
+		/*Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
 		win.setLocation(
 			((screenSize.width) / 2) - ((win.getSize().width) / 2),
 			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();
+		win.show();*/
+		UIComponents.SetWindow(win);
 
 	}
 

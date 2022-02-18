@@ -26,14 +26,14 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 
 	private String selectedMember;
 	
-	public JPanel getPanel(JButton curbutton)
+	/*public JPanel getPanel(JButton curbutton)
 	{
 		JPanel curbuttonPanel = new JPanel();
 		curbuttonPanel.setLayout(new FlowLayout());
 		curbutton.addActionListener(this);
 		curbuttonPanel.add(curbutton);
 		return curbuttonPanel;
-	}
+	}*/
 
 	public EndGameReport( String partyName, Party party ) {
 	
@@ -96,10 +96,12 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		buttonPanel.add(finished);*/
 		
 		printButton = new JButton("Print Report");
-		buttonPanel.add(getPanel(printButton));
+		printButton.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(printButton));
 		
 		finished = new JButton("Finished");
-		buttonPanel.add(getPanel(finished));
+		finished.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(finished));
 		
 		// Clean up main panel
 		colPanel.add(partyPanel);
@@ -110,11 +112,12 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		win.pack();
 
 		// Center Window on Screen
-		Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
+		/*Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
 		win.setLocation(
 			((screenSize.width) / 2) - ((win.getSize().width) / 2),
 			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();
+		win.show();*/
+		UIComponents.SetWindow(win);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
