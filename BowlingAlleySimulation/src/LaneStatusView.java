@@ -26,14 +26,14 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 	boolean laneShowing;
 	boolean psShowing;
 
-	public JPanel getPanel(JButton curbutton)
+	/*public JPanel getPanel(JButton curbutton)
 	{
 		JPanel curbuttonPanel = new JPanel();
 		curbuttonPanel.setLayout(new FlowLayout());
 		curbutton.addActionListener(this);
 		curbuttonPanel.add(curbutton);
 		return curbuttonPanel;
-	}
+	}*/
 	
 	public LaneStatusView(Lane lane, int laneNum ) {
 
@@ -87,15 +87,31 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		maintenance.addActionListener(this);
 		maintenancePanel.add(maintenance);*/
 		
+//		viewLane = new JButton("View Lane");
+//		buttonPanel.add(getPanel(viewLane));
+//		
+//		viewPinSetter = new JButton("Pinsetter");
+//		buttonPanel.add(getPanel(viewPinSetter));
+//		
+//		maintenance = new JButton("     ");
+//		maintenance.setBackground( Color.GREEN );
+//		buttonPanel.add(getPanel(maintenance));
+//
+//		viewLane.setEnabled( false );
+//		viewPinSetter.setEnabled( false );
+		
 		viewLane = new JButton("View Lane");
-		buttonPanel.add(getPanel(viewLane));
+		viewLane.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(viewLane));
 		
 		viewPinSetter = new JButton("Pinsetter");
-		buttonPanel.add(getPanel(viewPinSetter));
+		viewPinSetter.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(viewPinSetter));
 		
 		maintenance = new JButton("     ");
+		maintenance.addActionListener(this);
 		maintenance.setBackground( Color.GREEN );
-		buttonPanel.add(getPanel(maintenance));
+		buttonPanel.add(UIComponents.getPanel(maintenance));
 
 		viewLane.setEnabled( false );
 		viewPinSetter.setEnabled( false );
@@ -155,6 +171,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 
 	public void receiveLaneEvent(LaneEvent le) {
 		curBowler.setText( ( (Bowler)le.getBowler()).getNick() );
+		//curBowler.setText( le.getParty().getPartyMemberNickname(le.getBowler()));
 		if ( le.isMechanicalProblem() ) {
 			maintenance.setBackground( Color.RED );
 		}	

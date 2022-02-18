@@ -24,6 +24,15 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 	private int result;
 
 	private String selectedMember;
+	
+	/*public JPanel getPanel(JButton curbutton)
+	{
+		JPanel curbuttonPanel = new JPanel();
+		curbuttonPanel.setLayout(new FlowLayout());
+		curbutton.addActionListener(this);
+		curbuttonPanel.add(curbutton);
+		return curbuttonPanel;
+	}*/
 
 	public EndGameReport( String partyName, Party party ) {
 	
@@ -43,9 +52,12 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		
 		Vector myVector = new Vector();
 		Iterator iter = (party.getMembers()).iterator();
-		while (iter.hasNext()){
+		/*while (iter.hasNext()){
 			myVector.add( ((Bowler)iter.next()).getNick() );
-		}	
+		}*/
+		while (iter.hasNext()){
+			myVector.add( party.getPartyMemberNickname(((Bowler)iter.next())));
+		}
 		memberList = new JList(myVector);
 		memberList.setFixedCellWidth(120);
 		memberList.setVisibleRowCount(5);
@@ -67,7 +79,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 		
-		printButton = new JButton("Print Report");
+		/*printButton = new JButton("Print Report");
 		JPanel printButtonPanel = new JPanel();
 		printButtonPanel.setLayout(new FlowLayout());
 		printButton.addActionListener(this);
@@ -80,8 +92,16 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		finishedPanel.add(finished);
 
 		buttonPanel.add(printButton);
-		buttonPanel.add(finished);
-
+		buttonPanel.add(finished);*/
+		
+		printButton = new JButton("Print Report");
+		printButton.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(printButton));
+		
+		finished = new JButton("Finished");
+		finished.addActionListener(this);
+		buttonPanel.add(UIComponents.getPanel(finished));
+		
 		// Clean up main panel
 		colPanel.add(partyPanel);
 		colPanel.add(buttonPanel);
@@ -91,11 +111,12 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		win.pack();
 
 		// Center Window on Screen
-		Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
+		/*Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
 		win.setLocation(
 			((screenSize.width) / 2) - ((win.getSize().width) / 2),
 			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();
+		win.show();*/
+		UIComponents.SetWindow(win);
 	}
 	
 	public void actionPerformed(ActionEvent e) {

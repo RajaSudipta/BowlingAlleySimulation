@@ -15,9 +15,13 @@ public class ScoreReport {
 
 	private String content;
 	
-	public ScoreReport( Bowler bowler, int[] scores, int games ) {
-		String nick = bowler.getNick();
-		String full = bowler.getFullName();
+	public ScoreReport( Party party, Bowler bowler, int[] scores, int games ) {
+		
+		//String nick = bowler.getNick();
+		//String full = bowler.getFullName();
+		
+		String nick = party.getPartyMemberNickname(bowler);
+		String full = party.getPartyMemberFullname(bowler);
 		Vector v = null;
 		try{
 			v = ScoreHistoryFile.getScores(nick);

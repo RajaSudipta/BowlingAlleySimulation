@@ -224,9 +224,9 @@ public class Lane extends Thread implements PinsetterObserver {
 						finalScores[bowlIndex][gameNumber] = currentCumulScores.getFinalScore();
 						try{
 						Date date = new Date();
-						String dateString = "" + date.getHours() + ":" + date.getMinutes() + " " + date.getMonth() + "/" + date.getDay() + "/" + (date.getYear() + 1900);
+						String dateString = "" + date.getHours() + ":" + date.getMinutes() + " " + date.getMonth() + "/" + date.getDay() + "/" + (date.getYear() + 1900);			
 						String final_score=Integer.toString(currentCumulScores.getFinalScore());
-						ScoreHistoryFile.addScore(currentThrower.getNick(), dateString, final_score);
+            ScoreHistoryFile.addScore(party.getPartyMemberNickname(currentThrower), dateString, final_score);
 						} catch (Exception e) {System.err.println("Exception in addScore. "+ e );} 
 					}
 
@@ -246,7 +246,8 @@ public class Lane extends Thread implements PinsetterObserver {
 					}
 				}
 			} else if (partyAssigned && gameFinished) {
-				EndGamePrompt egp = new EndGamePrompt( ((Bowler) party.getMembers().get(0)).getNick() + "'s Party" );
+				//EndGamePrompt egp = new EndGamePrompt( ((Bowler) party.getMembers().get(0)).getNick() + "'s Party" );
+				EndGamePrompt egp = new EndGamePrompt( party.getPartyName() + "'s Party" );
 				int result = egp.getResult();
 				egp.distroy();
 				egp = null;
@@ -261,10 +262,11 @@ public class Lane extends Thread implements PinsetterObserver {
 					
 				} else if (result == 2) {// no, dont want to play another game
 					Vector printVector;	
-					EndGameReport egr = new EndGameReport( ((Bowler)party.getMembers().get(0)).getNick() + "'s Party", party);
+					EndGameReport egr = new EndGameReport( party.getPartyName() + "'s Party", party);
 					printVector = egr.getResult();
 					partyAssigned = false;
 					Iterator scoreIt = party.getMembers().iterator();
+					Party curparty = party;
 					party = null;
 					partyAssigned = false;
 					
@@ -275,12 +277,13 @@ public class Lane extends Thread implements PinsetterObserver {
 					int myIndex = 0;
 					while (scoreIt.hasNext()){
 						Bowler thisBowler = (Bowler)scoreIt.next();
-						ScoreReport sr = new ScoreReport( thisBowler, finalScores[myIndex++], gameNumber );
-						sr.sendEmail(thisBowler.getEmail());
+						ScoreReport sr = new ScoreReport( curparty, thisBowler, finalScores[myIndex++], gameNumber );
+						//sr.sendEmail(thisBowler.getEmail());
+						sr.sendEmail(curparty.getPartyMemberEmail((thisBowler)));
 						Iterator printIt = printVector.iterator();
 						while (printIt.hasNext()){
-							if (thisBowler.getNick() == (String)printIt.next()){
-								System.out.println("Printing " + thisBowler.getNick());
+							if (curparty.getPartyMemberNickname(thisBowler) == (String)printIt.next()){
+								System.out.println("Printing " + curparty.getPartyMemberNickname(thisBowler));
 								sr.sendPrintout();
 							}
 						}

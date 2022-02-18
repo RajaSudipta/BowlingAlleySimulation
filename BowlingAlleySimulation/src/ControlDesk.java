@@ -152,10 +152,11 @@ class ControlDesk extends Thread {
 	public Vector getPartyQueue() {
 		Vector displayPartyQueue = new Vector();
 		for ( int i=0; i < ( (Vector)partyQueue.asVector()).size(); i++ ) {
-			String nextParty =
+			/*String nextParty =
 				((Bowler) ((Vector) ((Party) partyQueue.asVector().get( i ) ).getMembers())
 					.get(0))
-					.getNick() + "'s Party";
+					.getNick() + "'s Party";*/
+			String nextParty = ((Party) partyQueue.asVector().get( i ) ).getPartyName() + "'s Party";
 			displayPartyQueue.addElement(nextParty);
 		}
 		return displayPartyQueue;
