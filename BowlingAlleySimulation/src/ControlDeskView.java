@@ -34,14 +34,6 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	 * Displays a GUI representation of the ControlDesk
 	 *
 	 */
-	/*public JPanel getPanel(JButton curbutton)
-	{
-		JPanel curbuttonPanel = new JPanel();
-		curbuttonPanel.setLayout(new FlowLayout());
-		curbutton.addActionListener(this);
-		curbuttonPanel.add(curbutton);
-		return curbuttonPanel;
-	}*/
 	
 	public ControlDeskView(ControlDesk controlDesk, int maxMembers) {
 
@@ -61,27 +53,6 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		controlsPanel.setLayout(new GridLayout(3, 1));
 		controlsPanel.setBorder(new TitledBorder("Controls"));
 
-		/*addParty = new JButton("Add Party");
-		JPanel addPartyPanel = new JPanel();
-		addPartyPanel.setLayout(new FlowLayout());
-		addParty.addActionListener(this);
-		addPartyPanel.add(addParty);
-		controlsPanel.add(addPartyPanel);
-
-		assign = new JButton("Assign Lanes");
-		JPanel assignPanel = new JPanel();
-		assignPanel.setLayout(new FlowLayout());
-		assign.addActionListener(this);
-		assignPanel.add(assign);
-//		controlsPanel.add(assignPanel);
-
-		finished = new JButton("Finished");
-		JPanel finishedPanel = new JPanel();
-		finishedPanel.setLayout(new FlowLayout());
-		finished.addActionListener(this);
-		finishedPanel.add(finished);
-		controlsPanel.add(finishedPanel);*/
-		
 		addParty = new JButton("Add Party");
 		addParty.addActionListener(this);
 		controlsPanel.add(UIComponents.getPanel(addParty));
@@ -147,11 +118,6 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		});
 
 		// Center Window on Screen
-		/*Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
-		win.setLocation(
-			((screenSize.width) / 2) - ((win.getSize().width) / 2),
-			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();*/
 		UIComponents.SetWindow(win);
 
 	}

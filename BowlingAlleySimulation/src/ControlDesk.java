@@ -111,17 +111,9 @@ class ControlDesk extends Thread {
 				curLane.assignParty(((Party) partyQueue.next()));
 			}
 		}
-//		publish(new ControlDeskEvent(getPartyQueue()));
 		subscribers.publish(new ControlDeskEvent(getPartyQueue()));
 	}
 
-    /**
-     */
-
-	/* can be removed */
-//	public void viewScores(Lane ln) {
-//		// TODO: attach a LaneScoreView object to that lane
-//	}
 
     /**
      * Creates a party from a Vector of nickNAmes and adds them to the wait queue.
@@ -138,7 +130,6 @@ class ControlDesk extends Thread {
 		}
 		Party newParty = new Party(partyBowlers);
 		partyQueue.add(newParty);
-//		publish(new ControlDeskEvent(getPartyQueue()));
 		subscribers.publish(new ControlDeskEvent(getPartyQueue()));
 	}
 
@@ -152,10 +143,6 @@ class ControlDesk extends Thread {
 	public Vector getPartyQueue() {
 		Vector displayPartyQueue = new Vector();
 		for ( int i=0; i < ( (Vector)partyQueue.asVector()).size(); i++ ) {
-			/*String nextParty =
-				((Bowler) ((Vector) ((Party) partyQueue.asVector().get( i ) ).getMembers())
-					.get(0))
-					.getNick() + "'s Party";*/
 			String nextParty = ((Party) partyQueue.asVector().get( i ) ).getPartyName() + "'s Party";
 			displayPartyQueue.addElement(nextParty);
 		}
@@ -173,34 +160,6 @@ class ControlDesk extends Thread {
 		return numLanes;
 	}
 
-//    /**
-//     * Allows objects to subscribe as observers
-//     * 
-//     * @param adding	the ControlDeskObserver that will be subscribed
-//     *
-//     */
-//
-//	public void subscribe(ControlDeskObserver adding) {
-//		subscribers.add(adding);
-//	}
-//
-//    /**
-//     * Broadcast an event to subscribing objects.
-//     * 
-//     * @param event	the ControlDeskEvent to broadcast
-//     *
-//     */
-//
-//	public void publish(ControlDeskEvent event) {
-//		Iterator eventIterator = subscribers.iterator();
-//		while (eventIterator.hasNext()) {
-//			(
-//				(ControlDeskObserver) eventIterator
-//					.next())
-//					.receiveControlDeskEvent(
-//				event);
-//		}
-//	}
 
     /**
      * Accessor method for lanes

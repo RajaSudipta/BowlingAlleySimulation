@@ -108,30 +108,6 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 
-		/*addPatron = new JButton("Add to Party");
-		JPanel addPatronPanel = new JPanel();
-		addPatronPanel.setLayout(new FlowLayout());
-		addPatron.addActionListener(this);
-		addPatronPanel.add(addPatron);
-
-		remPatron = new JButton("Remove Member");
-		JPanel remPatronPanel = new JPanel();
-		remPatronPanel.setLayout(new FlowLayout());
-		remPatron.addActionListener(this);
-		remPatronPanel.add(remPatron);
-
-		newPatron = new JButton("New Patron");
-		JPanel newPatronPanel = new JPanel();
-		newPatronPanel.setLayout(new FlowLayout());
-		newPatron.addActionListener(this);
-		newPatronPanel.add(newPatron);
-
-		finished = new JButton("Finished");
-		JPanel finishedPanel = new JPanel();
-		finishedPanel.setLayout(new FlowLayout());
-		finished.addActionListener(this);
-		finishedPanel.add(finished);*/
-
 		addPatron = new JButton("Add to Party");
 		addPatron.addActionListener(this);
 		buttonPanel.add(UIComponents.getPanel(addPatron));
@@ -148,11 +124,6 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		finished.addActionListener(this);
 		buttonPanel.add(UIComponents.getPanel(finished));
 		
-		/*buttonPanel.add(addPatronPanel);
-		buttonPanel.add(remPatronPanel);
-		buttonPanel.add(newPatronPanel);
-		buttonPanel.add(finishedPanel);*/
-
 		// Clean up main panel
 		colPanel.add(partyPanel);
 		colPanel.add(bowlerPanel);
@@ -160,16 +131,9 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 		win.getContentPane().add("Center", colPanel);
 		
-		//win.getContentPane().add("Center", getcolpanel(colPanel));
-
 		win.pack();
 
 		// Center Window on Screen
-		/*Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
-		win.setLocation(
-			((screenSize.width) / 2) - ((win.getSize().width) / 2),
-			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();*/
 		UIComponents.SetWindow(win);
 
 	}

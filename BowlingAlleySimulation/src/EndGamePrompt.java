@@ -17,14 +17,6 @@ public class EndGamePrompt implements ActionListener {
 
 	private int result;
 	
-	/*public JPanel getPanel(JButton curbutton)
-	{
-		JPanel curbuttonPanel = new JPanel();
-		curbuttonPanel.setLayout(new FlowLayout());
-		curbutton.addActionListener(this);
-		curbuttonPanel.add(curbutton);
-		return curbuttonPanel;
-	}*/
 	public EndGamePrompt( String partyName ) {
 
 		result =0;
@@ -56,21 +48,6 @@ public class EndGamePrompt implements ActionListener {
 		
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 		
-		/*yesButton = new JButton("Yes");
-		JPanel yesButtonPanel = new JPanel();
-		yesButtonPanel.setLayout(new FlowLayout());
-		yesButton.addActionListener(this);
-		yesButtonPanel.add(yesButton);
-
-		noButton = new JButton("No");
-		JPanel noButtonPanel = new JPanel();
-		noButtonPanel.setLayout(new FlowLayout());
-		noButton.addActionListener(this);
-		noButtonPanel.add(noButton);
-
-		buttonPanel.add(yesButton);
-		buttonPanel.add(noButton);*/
-		
 		yesButton = new JButton("Yes");
 		yesButton.addActionListener(this);
 		buttonPanel.add(UIComponents.getPanel(yesButton));
@@ -89,11 +66,6 @@ public class EndGamePrompt implements ActionListener {
 		win.pack();
 
 		// Center Window on Screen
-		/*Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
-		win.setLocation(
-			((screenSize.width) / 2) - ((win.getSize().width) / 2),
-			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();*/
 		UIComponents.SetWindow(win);
 	}
 

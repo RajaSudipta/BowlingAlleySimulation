@@ -25,15 +25,6 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 
 	private String selectedMember;
 	
-	/*public JPanel getPanel(JButton curbutton)
-	{
-		JPanel curbuttonPanel = new JPanel();
-		curbuttonPanel.setLayout(new FlowLayout());
-		curbutton.addActionListener(this);
-		curbuttonPanel.add(curbutton);
-		return curbuttonPanel;
-	}*/
-
 	public EndGameReport( String partyName, Party party ) {
 	
 		result =0;
@@ -52,9 +43,6 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		
 		Vector myVector = new Vector();
 		Iterator iter = (party.getMembers()).iterator();
-		/*while (iter.hasNext()){
-			myVector.add( ((Bowler)iter.next()).getNick() );
-		}*/
 		while (iter.hasNext()){
 			myVector.add( party.getPartyMemberNickname(((Bowler)iter.next())));
 		}
@@ -79,21 +67,6 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 		
-		/*printButton = new JButton("Print Report");
-		JPanel printButtonPanel = new JPanel();
-		printButtonPanel.setLayout(new FlowLayout());
-		printButton.addActionListener(this);
-		printButtonPanel.add(printButton);
-
-		finished = new JButton("Finished");
-		JPanel finishedPanel = new JPanel();
-		finishedPanel.setLayout(new FlowLayout());
-		finished.addActionListener(this);
-		finishedPanel.add(finished);
-
-		buttonPanel.add(printButton);
-		buttonPanel.add(finished);*/
-		
 		printButton = new JButton("Print Report");
 		printButton.addActionListener(this);
 		buttonPanel.add(UIComponents.getPanel(printButton));
@@ -111,11 +84,6 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		win.pack();
 
 		// Center Window on Screen
-		/*Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
-		win.setLocation(
-			((screenSize.width) / 2) - ((win.getSize().width) / 2),
-			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();*/
 		UIComponents.SetWindow(win);
 	}
 	

@@ -17,6 +17,7 @@ public class UIComponents {
 		curbuttonPanel.add(curbutton);
 		return curbuttonPanel;
 	}
+	
 	public static void SetWindow(JFrame win){
         Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
         win.setLocation(
@@ -24,6 +25,7 @@ public class UIComponents {
                 ((screenSize.height) / 2) - ((win.getSize().height) / 2));
         win.setVisible(true);
     }
+	
 	public static JPanel getFieldPanel(String label, JPanel curPanel, JLabel curLabel, JTextField curField)
 	{
 		curPanel.setLayout(new FlowLayout());
@@ -31,4 +33,5 @@ public class UIComponents {
 		curPanel.add(curField);
 		return curPanel;
 	}
+	
 }
