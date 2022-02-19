@@ -140,9 +140,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	private Party party;
 	private Pinsetter setter;
 	private HashMap scores;
-	/* Can be removed */
-//	private Vector subscribers;
-
+	private Vector subscribers;
 	private boolean gameIsHalted;
 
 	private boolean partyAssigned;
@@ -161,9 +159,6 @@ public class Lane extends Thread implements PinsetterObserver {
 	private int gameNumber;
 	
 	private Bowler currentThrower;			// = the thrower who just took a throw
-	
-	/** The collection of subscribers */
-	public final Vector subscribers;
 	
 	/** Lane()
 	 * 
@@ -269,11 +264,7 @@ public class Lane extends Thread implements PinsetterObserver {
 					Party curparty = party;
 					party = null;
 					partyAssigned = false;
-					
-					/* can be removed */
-//					publish(lanePublish());
-					LaneSubscriber.publish(this,lanePublish());
-					
+					publish();
 					int myIndex = 0;
 					while (scoreIt.hasNext()){
 						Bowler thisBowler = (Bowler)scoreIt.next();
@@ -420,9 +411,7 @@ public class Lane extends Thread implements PinsetterObserver {
 		curScore[ index - 1] = score;
 		scores.put(Cur, curScore);
 		currentCumulScores.getScore(Cur, frame, ball, (int[]) scores.get(Cur));
-		/* can be removed */
-//		publish(lanePublish());
-		LaneSubscriber.publish(this, lanePublish());
+		publish();
 	}
 
 	/** lanePublish()
@@ -431,10 +420,11 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * 
 	 * @return		The new lane event
 	 */
-	private LaneEvent lanePublish(  ) {
-		LaneEvent laneEvent = new LaneEvent(party, bowlIndex, currentThrower,  currentCumulScores.getCumulScores(), scores, frameNumber+1, curScores, ball, gameIsHalted);
-		return laneEvent;
-	}
+	/* Can be removed */
+//	private LaneEvent lanePublish(  ) {
+//		LaneEvent laneEvent = new LaneEvent(party, bowlIndex, currentThrower,  currentCumulScores.getCumulScores(), scores, frameNumber+1, curScores, ball, gameIsHalted);
+//		return laneEvent;
+//	}
 
 	/** getScore()
 	 *
@@ -572,44 +562,44 @@ public class Lane extends Thread implements PinsetterObserver {
 //	}
 
 	/* Can be removed subscribe, unsubscribe, publish */
-//	/** subscribe
-//	 * 
-//	 * Method that will add a subscriber
-//	 * 
-//	 * @param subscribe	Observer that is to be added
-//	 */
-//
-//	public void subscribe( LaneObserver adding ) {
-//		subscribers.add( adding );
-//	}
-//
-//	/** unsubscribe
-//	 * 
-//	 * Method that unsubscribes an observer from this object
-//	 * 
-//	 * @param removing	The observer to be removed
-//	 */
-//	
-//	public void unsubscribe( LaneObserver removing ) {
-//		subscribers.remove( removing );
-//	}
-//
-//	/** publish
-//	 *
-//	 * Method that publishes an event to subscribers
-//	 * 
-//	 * @param event	Event that is to be published
-//	 */
-//
-//	public void publish( LaneEvent event ) {
-//		if( subscribers.size() > 0 ) {
-//			Iterator eventIterator = subscribers.iterator();
-//			
-//			while ( eventIterator.hasNext() ) {
-//				( (LaneObserver) eventIterator.next()).receiveLaneEvent( event );
-//			}
-//		}
-//	}
+	/** subscribe
+	 * 
+	 * Method that will add a subscriber
+	 * 
+	 * @param subscribe	Observer that is to be added
+	 */
+
+	public void subscribe( LaneObserver adding ) {
+		subscribers.add( adding );
+	}
+
+	/** unsubscribe
+	 * 
+	 * Method that unsubscribes an observer from this object
+	 * 
+	 * @param removing	The observer to be removed
+	 */
+	
+	public void unsubscribe( LaneObserver removing ) {
+		subscribers.remove( removing );
+	}
+
+	/** publish
+	 *
+	 * Method that publishes an event to subscribers
+	 * 
+	 * @param event	Event that is to be published
+	 */
+
+	public void publish() {
+		if( subscribers.size() > 0 ) {
+			Iterator eventIterator = subscribers.iterator();
+			
+			while ( eventIterator.hasNext() ) {
+				( (LaneObserver) eventIterator.next()).receiveLaneEvent( party, bowlIndex, currentThrower, currentCumulScores.getCumulScores(), scores, frameNumber+1, curScores, ball, gameIsHalted );
+			}
+		}
+	}
 
 	/**
 	 * Accessor to get this Lane's pinsetter
@@ -626,9 +616,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	 */
 	public void pauseGame() {
 		gameIsHalted = true;
-		/* can be removed */
-//		publish(lanePublish());
-		LaneSubscriber.publish(this, lanePublish());
+		publish();
 	}
 	
 	/**
@@ -636,10 +624,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	 */
 	public void unPauseGame() {
 		gameIsHalted = false;
-		/* can be removed */
-//		publish(lanePublish());
-		LaneSubscriber.publish(this, lanePublish());
-		
+		publish();
 	}
 
 }

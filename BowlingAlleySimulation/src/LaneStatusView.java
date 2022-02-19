@@ -8,6 +8,8 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+
 import javax.swing.*;
 
 public class LaneStatusView implements ActionListener, LaneObserver, PinsetterObserver {
@@ -48,10 +50,8 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		ps.subscribe(psv);
 
 		lv = new LaneView( lane, laneNum );
+		lane.subscribe(lv);
 		
-		/* This can be removed */
-//		lane.subscribe(lv);
-		LaneSubscriber.subscribe(lane,lv);
 
 		jp = new JPanel();
 		jp.setLayout(new FlowLayout());
@@ -169,10 +169,9 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		}
 	}
 
-	public void receiveLaneEvent(LaneEvent le) {
-		curBowler.setText( ( (Bowler)le.getBowler()).getNick() );
-		//curBowler.setText( le.getParty().getPartyMemberNickname(le.getBowler()));
-		if ( le.isMechanicalProblem() ) {
+	public void receiveLaneEvent(Party pty, int theIndex, Bowler theBowler, int[][] theCumulScore, HashMap theScore, int theFrameNum, int[] theCurScores, int theBall, boolean mechProblem) {
+		curBowler.setText( ( (Bowler)theBowler).getNick() );
+		if ( mechProblem ) {
 			maintenance.setBackground( Color.RED );
 		}	
 		if ( lane.isPartyAssigned() == false ) {
