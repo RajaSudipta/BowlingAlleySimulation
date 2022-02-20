@@ -54,8 +54,8 @@ class ControlDesk extends Thread {
 	private int numLanes;
 	
 	/** The collection of subscribers */
-	private ControlDeskSubscriber subscribers;
-
+//	private ControlDeskSubscriber subscribers;
+	public final Vector subscribers;
     /**
      * Constructor for the ControlDesk class
      *
@@ -68,7 +68,8 @@ class ControlDesk extends Thread {
 		lanes = new HashSet(numLanes);
 		partyQueue = new Queue();
 
-		subscribers = new ControlDeskSubscriber();
+		subscribers=new Vector();
+		//subscribers = new ControlDeskSubscriber();
 
 		for (int i = 0; i < numLanes; i++) {
 			lanes.add(new Lane());
@@ -113,7 +114,7 @@ class ControlDesk extends Thread {
 				curLane.assignParty(((Party) partyQueue.next()));
 			}
 		}
-		subscribers.publish(new ControlDeskEvent(getPartyQueue()));
+		ControlDeskSubscriber.publish(this,new ControlDeskEvent(getPartyQueue()));
 	}
 
 
@@ -132,7 +133,7 @@ class ControlDesk extends Thread {
 		}
 		Party newParty = new Party(partyBowlers);
 		partyQueue.add(newParty);
-		subscribers.publish(new ControlDeskEvent(getPartyQueue()));
+		ControlDeskSubscriber.publish(this,new ControlDeskEvent(getPartyQueue()));
 	}
 
     /**

@@ -16,10 +16,9 @@ public class ControlDeskSubscriber {
      * @param adding	the ControlDeskObserver that will be subscribed
      *
      */
-
-	public void subscribe(ControlDeskObserver adding) {
-		subscribers.add(adding);
-	}
+	 public static void subscribe(ControlDesk controlDesk, ControlDeskObserver adding) {
+        controlDesk.subscribers.add(adding);
+    }
 
     /**
      * Broadcast an event to subscribing objects.
@@ -27,17 +26,10 @@ public class ControlDeskSubscriber {
      * @param event	the ControlDeskEvent to broadcast
      *
      */
+    public static void publish(ControlDesk controlDesk, ControlDeskEvent event) {
+        for (Object subscriber : controlDesk.subscribers) {
+            ((ControlDeskObserver) subscriber).receiveControlDeskEvent(event);
+        }
+    }
 
-	public void publish(ControlDeskEvent event) {
-		Iterator eventIterator = subscribers.iterator();
-		while (eventIterator.hasNext()) {
-			(
-				(ControlDeskObserver) eventIterator
-					.next())
-					.receiveControlDeskEvent(
-				event);
-		}
-	}
-
-	
 }
