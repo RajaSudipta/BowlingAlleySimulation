@@ -21,7 +21,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private JButton addParty, finished, assign;
+	private JButton addParty, finished, assign, configureBowlerPatron, showScoreStats;
 	private JFrame win;
 	private JList partyList;
 	
@@ -50,20 +50,39 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
 		// Controls Panel
 		JPanel controlsPanel = new JPanel();
-		controlsPanel.setLayout(new GridLayout(3, 1));
+		controlsPanel.setLayout(new GridLayout(5, 1));
 		controlsPanel.setBorder(new TitledBorder("Controls"));
 
 		addParty = new JButton("Add Party");
 		addParty.addActionListener(this);
 		controlsPanel.add(UIComponents.getPanel(addParty));
 		
+		configureBowlerPatron= new JButton("Configure Bowler & Patron");
+		configureBowlerPatron.addActionListener(this);
+		controlsPanel.add(UIComponents.getPanel(configureBowlerPatron));
+		
 		assign = new JButton("Assign Lanes");
 		assign.addActionListener(this);
 		//controlsPanel.add(getPanel(assign));
 		
+		showScoreStats = new JButton("Show Score Statistics");
+		showScoreStats.addActionListener(this);
+		controlsPanel.add(UIComponents.getPanel(showScoreStats));
+
+		
 		finished = new JButton("Finished");
 		finished.addActionListener(this);
 		controlsPanel.add(UIComponents.getPanel(finished));
+		
+		//---- Show emoticon in the control panel screen
+		Icon gifIcon = new ImageIcon(this.getClass().getResource("images\\logo.gif"));
+		JPanel emojiPanel = new JPanel();
+		JLabel gifLabel = new JLabel(gifIcon);
+		emojiPanel.setLayout(new FlowLayout());
+		final JButton gifTest;
+		emojiPanel.add(gifLabel);
+		final JButton gifTest2;
+		controlsPanel.add(emojiPanel);
 		
 		
 		// Lane Status Panel
@@ -138,6 +157,15 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		if (e.getSource().equals(finished)) {
 			win.hide();
 			System.exit(0);
+		}
+		if (e.getSource().equals(configureBowlerPatron)) {
+//			System.out.println("Hello bowler patron change!!");
+			LanePatronJFrame lpf = new LanePatronJFrame();
+			lpf.start();
+		}
+		if (e.getSource().equals(showScoreStats)) {
+//			System.out.println("Hello score stats!!");
+			ShowScoreStats stat = new ShowScoreStats();
 		}
 	}
 
