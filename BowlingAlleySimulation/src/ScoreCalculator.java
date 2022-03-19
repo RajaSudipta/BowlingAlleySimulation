@@ -50,10 +50,42 @@ public class ScoreCalculator {
 			cumulScores[bowlIndex][i] = 0;
 		}
 		int current = 2 * (frame - 1) + ball - 1;
+		
 		// Iterate through each ball until the current one.
 		for (int i = 0; i != current + 2; i++) {
+			//Two consecutive Gutters handling
+			if(i%2==1 && i<19 && curScore[i-1]==0 && curScore[i]==0)
+        	{
+				//If two consecutive gutters occur in the middle
+        		if(i>1)
+        		{
+        			 int cur_ind=i-1, max_so_far = 0;
+        			 //Find the max_score of all the frames
+        			 for(int j=0;j<cur_ind;j+=2)
+        			 {
+        				 if((curScore[j]+curScore[j+1])>max_so_far)
+        				 {
+        					 max_so_far=curScore[j]+curScore[j+1];
+        				 }
+        			 }
+        			 //System.out.println("max_so_far:"+max_so_far);
+        			 double decr_score=(0.5)*(max_so_far);
+        			 cumulScores[bowlIndex][(i/2)]-=(int)decr_score;
+        		}
+        		//If two consecutive gutters occur at the start
+        		else
+        		{
+        			//Decrement half of the points of next frame
+        			 if(i<current-1)
+        			 {
+	        			  double decr_score=(0.5)*(curScore[i+1]+curScore[i+2]);
+	        			  //System.out.println("decr_score:"+decr_score);
+	        			  cumulScores[bowlIndex][(i/2)]-=(int)decr_score;
+        			 }
+        		}
+        	}
 			// Spare:
-			if (i % 2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19) {
+			else if (i % 2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19) {
 				// This ball was a the second of a spare.
 				// Also, we're not on the current ball.
 				// Add the next ball to the ith one in cumul.
@@ -72,6 +104,12 @@ public class ScoreCalculator {
 				normal(curScore, i);
 			}
 		}
+		/*
+		 * System.out.println("\nBall No:" + current); for (int i = 0; i != 10; i++) {
+		 * System.out.print(cumulScores[bowlIndex][i]+"	"); }
+		 * System.out.println("\nAll scores"); for (int i = 0; i != curScore.length;
+		 * i++) { System.out.print(curScore[i]+"	"); }
+		 */
 		return totalScore;
 	}
 
