@@ -75,7 +75,10 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		controlsPanel.add(UIComponents.getPanel(finished));
 		
 		//---- Show emoticon in the control panel screen
+		/* Path For Windows */
 		Icon gifIcon = new ImageIcon(this.getClass().getResource("images\\logo.gif"));
+		/* Path For Linux */
+//		Icon gifIcon = new ImageIcon(this.getClass().getResource("images/logo.gif"));
 		JPanel emojiPanel = new JPanel();
 		JLabel gifLabel = new JLabel(gifIcon);
 		emojiPanel.setLayout(new FlowLayout());

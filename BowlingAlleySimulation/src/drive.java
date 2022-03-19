@@ -7,15 +7,20 @@ public class drive {
 //		int numLanes = 3;
 //		int maxPatronsPerParty=5;
 		
-		/* DB Oerations */
-		CreateDB.connectDB();
-		CreateDB.createBowlerTable();
-		CreateDB.createScoreTable();
-		CreateDB.createLanePatronTable();
+		/* DB Oerations, run once at the beginnning if database not there */
+		
+//		CreateDB.connectDB();
+//		CreateDB.createBowlerTable();
+//		CreateDB.createScoreTable();
+//		CreateDB.createLanePatronTable();
 //		CreateDB.insertIntoBowlerTable();
 //		CreateDB.insertIntoScoreTable();
 //		CreateDB.insertIntoLanePatronTable(4, 6);
+//		
+		
+		/************************Debug Codes********************************/
 //		CreateDB.updateLanePatronTable(4, 6);
+//		
 //		CreateDB.insertSingleRowIntoBowlerTable("xyz", "xyz", "xyz");
 //		CreateDB.insertSingleRowIntoScoreTable("xyz", "xyz", "xyz");
 //		CreateDB.printLanePatronTable();
@@ -29,6 +34,7 @@ public class drive {
 //		System.out.println("Mike Lowest Score: " + ScoreHistoryFile.getLowestScoreByNickName("Mike")); 
 //		
 //		System.out.println("Mikex Lowest Score: " + ScoreHistoryFile.getLowestScoreByNickName("Mikex")); 
+		/*******************************************************************/
 		
 		Vector v = CreateDB.getLanePatron();
 		

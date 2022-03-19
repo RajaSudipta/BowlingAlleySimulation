@@ -14,9 +14,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class ScoreHistoryFile {
-
-//	private static String SCOREHISTORY_DAT = "src\\SCOREHISTORY.DAT";
-	private static String SCOREHISTORY_DAT = "src/SCOREHISTORY.DAT";
+	/* Path for Windows */
+	private static String SCOREHISTORY_DAT = "src\\SCOREHISTORY.DAT";
+	/* Path For Linux */
+//	private static String SCOREHISTORY_DAT = "src/SCOREHISTORY.DAT";
 
 //	public static void addScore(String nick, String date, String score)
 //		throws IOException, FileNotFoundException {
