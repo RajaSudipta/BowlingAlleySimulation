@@ -151,6 +151,8 @@ public class Lane extends Thread implements PinsetterObserver {
 	private int frameNumber;
 	private boolean tenthFrameStrike;
 
+	private boolean stop;
+	
 	private int[] curScores;
 	private ScoreCalculator currentCumulScores;
 	private boolean canThrowAgain;
@@ -173,6 +175,7 @@ public class Lane extends Thread implements PinsetterObserver {
 
 		gameIsHalted = false;
 		partyAssigned = false;
+        stop = false;
 
 		gameNumber = 0;
 
@@ -195,9 +198,9 @@ public class Lane extends Thread implements PinsetterObserver {
 			if (partyAssigned && !gameFinished) {	// we have a party on this lane, 
 								// so next bower can take a throw
 			
-				while (gameIsHalted) {
+				while (gameIsHalted||stop) {
 					try {
-						sleep(10);
+						sleep(100);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -229,8 +232,10 @@ public class Lane extends Thread implements PinsetterObserver {
 					setter.reset();
 					bowlIndex++;
 					currentCumulScores.setBowlIndex(bowlIndex);
+					stop = true;
 					
 				} else {
+					stop = false;
 					frameNumber++;
 					resetBowlerIterator();
 					bowlIndex = 0;
@@ -251,6 +256,7 @@ public class Lane extends Thread implements PinsetterObserver {
 				
 				// TODO: send record of scores to control desk
 				if (result == 1) {					// yes, want to play again
+					stop = false;
 					resetScores();
 					resetBowlerIterator();
 					
@@ -346,6 +352,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * @post the iterator points to the first bowler in the party
 	 */
 	private void resetBowlerIterator() {
+		stop = false;
 		bowlerIterator = (party.getMembers()).iterator();
 	}
 
@@ -511,4 +518,7 @@ public class Lane extends Thread implements PinsetterObserver {
 		publish();
 	}
 
+	public void rollpressed() {
+		stop = false;
+	}
 }

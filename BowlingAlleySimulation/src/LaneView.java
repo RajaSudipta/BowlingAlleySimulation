@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 public class LaneView implements LaneObserver, ActionListener {
 
@@ -22,9 +25,14 @@ public class LaneView implements LaneObserver, ActionListener {
 	JLabel[][] ballLabel;
 	JPanel[][] scores;
 	JLabel[][] scoreLabel;
+	JLabel[][] emojiLabel;
 	JPanel[][] ballGrid;
 	JPanel[] pins;
 
+	JPanel roll_panel;
+	JLabel instruction_to_roll;
+	JButton roll_button; 
+	
 	JButton maintenance;
 	Lane lane;
 
@@ -69,6 +77,7 @@ public class LaneView implements LaneObserver, ActionListener {
 		ballLabel = new JLabel[numBowlers][23];
 		scores = new JPanel[numBowlers][10];
 		scoreLabel = new JLabel[numBowlers][10];
+		emojiLabel = new JLabel[numBowlers][10];
 		ballGrid = new JPanel[numBowlers][10];
 		pins = new JPanel[numBowlers];
 
@@ -76,8 +85,7 @@ public class LaneView implements LaneObserver, ActionListener {
 			for (int j = 0; j != 23; j++) {
 				ballLabel[i][j] = new JLabel(" ");
 				balls[i][j] = new JPanel();
-				balls[i][j].setBorder(
-					BorderFactory.createLineBorder(Color.BLACK));
+				balls[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				balls[i][j].add(ballLabel[i][j]);
 			}
 		}
@@ -85,14 +93,14 @@ public class LaneView implements LaneObserver, ActionListener {
 		for (int i = 0; i != numBowlers; i++) {
 			for (int j = 0; j != 9; j++) {
 				ballGrid[i][j] = new JPanel();
-				ballGrid[i][j].setLayout(new GridLayout(0, 3));
+				ballGrid[i][j].setLayout(new GridLayout(0, 5));
 				ballGrid[i][j].add(new JLabel("  "), BorderLayout.EAST);
 				ballGrid[i][j].add(balls[i][2 * j], BorderLayout.EAST);
 				ballGrid[i][j].add(balls[i][2 * j + 1], BorderLayout.EAST);
 			}
 			int j = 9;
 			ballGrid[i][j] = new JPanel();
-			ballGrid[i][j].setLayout(new GridLayout(0, 3));
+			ballGrid[i][j].setLayout(new GridLayout(0, 5));
 			ballGrid[i][j].add(balls[i][2 * j]);
 			ballGrid[i][j].add(balls[i][2 * j + 1]);
 			ballGrid[i][j].add(balls[i][2 * j + 2]);
@@ -101,17 +109,30 @@ public class LaneView implements LaneObserver, ActionListener {
 		for (int i = 0; i != numBowlers; i++) {
 			pins[i] = new JPanel();
 			pins[i].setBorder(BorderFactory.createTitledBorder(party.getPartyMemberNickname(((Bowler) bowlers.get(i)))));
-			pins[i].setLayout(new GridLayout(0, 10));
+			pins[i].setLayout(new GridLayout(0, 11));
+			
+			
 			for (int k = 0; k != 10; k++) {
 				scores[i][k] = new JPanel();
 				scoreLabel[i][k] = new JLabel("  ", SwingConstants.CENTER);
-				scores[i][k].setBorder(
-					BorderFactory.createLineBorder(Color.BLACK));
+				emojiLabel[i][k] = new JLabel("      ", SwingConstants.CENTER);
+				scores[i][k].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				scores[i][k].setLayout(new GridLayout(0, 1));
 				scores[i][k].add(ballGrid[i][k], BorderLayout.EAST);
 				scores[i][k].add(scoreLabel[i][k], BorderLayout.SOUTH);
+				scores[i][k].add(emojiLabel[i][k], BorderLayout.NORTH);
 				pins[i].add(scores[i][k], BorderLayout.EAST);
 			}
+			
+			/*
+			Icon gifIcon = new ImageIcon(this.getClass().getResource("images\\white.gif"));
+		    JPanel emojiPanel = new JPanel();
+		    JLabel gifLabel = new JLabel(gifIcon);
+		    emojiPanel.setLayout(new FlowLayout());
+		    emojiPanel.add(gifLabel);
+		    pins[i].add(emojiPanel);*/
+			
+		 
 			panel.add(pins[i]);
 		}
 
@@ -153,53 +174,73 @@ public class LaneView implements LaneObserver, ActionListener {
 
 				cpanel.add(buttonPanel, "South");
 
+				roll_panel = new JPanel();
+				roll_panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+				instruction_to_roll=new JLabel(" (Press Space Bar to Roll.)");
+				roll_button = new JButton("Roll the ball");
+				roll_panel.add(roll_button);
+				roll_panel.add(instruction_to_roll);
+				roll_button.addActionListener(this);
+				cpanel.add(roll_panel,"North");
+				
 				frame.pack();
 
 			}
 
 			int[][] lescores = theCumulScore;
 			for (int k = 0; k < numBowlers; k++) {
-				for (int i = 0; i <= theFrameNum - 1; i++) {
-					if (lescores[k][i] != 0)
-						scoreLabel[k][i].setText(
-							(new Integer(lescores[k][i])).toString());
-				}
+				
 				for (int i = 0; i < 21; i++) {
-					if (((int[]) ((HashMap) theScore)
-						.get(bowlers.get(k)))[i]
-						!= -1)
-						if (((int[]) ((HashMap) theScore)
-							.get(bowlers.get(k)))[i]
-							== 10
-							&& (i % 2 == 0 || i == 19))
+					if (((int[]) ((HashMap) theScore).get(bowlers.get(k)))[i] != -1)
+						if (((int[]) ((HashMap) theScore).get(bowlers.get(k)))[i] == 10 && (i % 2 == 0 || i == 19))
 							ballLabel[k][i].setText("X");
-						else if (
-							i > 0
-								&& ((int[]) ((HashMap) theScore)
-									.get(bowlers.get(k)))[i]
-									+ ((int[]) ((HashMap) theScore)
-										.get(bowlers.get(k)))[i
-									- 1]
-									== 10
-								&& i % 2 == 1)
+						else if ( i > 0 && ((int[]) ((HashMap) theScore).get(bowlers.get(k)))[i] + ((int[]) ((HashMap) theScore).get(bowlers.get(k)))[i - 1] == 10 && i % 2 == 1)
 							ballLabel[k][i].setText("/");
 						else if ( ((int[])((HashMap) theScore).get(bowlers.get(k)))[i] == -2 ){
 							
 							ballLabel[k][i].setText("F");
 						} else
-							ballLabel[k][i].setText(
-								(new Integer(((int[]) ((HashMap) theScore)
-									.get(bowlers.get(k)))[i]))
-									.toString());
+							ballLabel[k][i].setText((new Integer(((int[]) ((HashMap) theScore).get(bowlers.get(k)))[i])).toString());			
+				}
+			
+				for (int i = 0; i <= theFrameNum - 1; i++) {
+					if ((lescores[k][i] != 0)) { 
+						if (i==0 || (i>0&&lescores[k][i]!=lescores[k][i-1]-1))
+							scoreLabel[k][i].setText((new Integer(lescores[k][i])).toString());
+					        
+					    	if (i==0 || (i > 0 && lescores[k][i]!=lescores[k][i-1]-1)) {  
+					    		int diff;
+								if (i > 0)
+									diff = Math.abs(lescores[k][i] - lescores[k][i-1]);
+								else
+									diff = lescores[k][i];
+								if(diff <= 6) {
+									emojiLabel[k][i].setText(" ( ˘︹˘ ) ");
+								} else if(diff <= 8) {
+									emojiLabel[k][i].setText(" (ㆆ_ㆆ) ");
+								} else if(diff <= 10) {
+									emojiLabel[k][i].setText(" (ɔ◔‿◔)ɔ ♥ ");
+								} else {
+									emojiLabel[k][i].setText(" ¯\\_( ͠❛ ͜ʖ ͡❛)_/¯ ");
+								}
+//		
+					    	}
+				
 				}
 			}
 
 		}
 	}
+	}
+		
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(maintenance)) {
 			lane.pauseGame();
+		}
+		else if(e.getSource().equals(roll_button))
+		{
+		   lane.rollpressed();
 		}
 	}
 
