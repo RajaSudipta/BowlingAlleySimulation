@@ -27,7 +27,9 @@ public class ScoreCalculator {
 	public void setCumulScores(int[][] cumScore) {
 		cumulScores = cumScore;
 	}
-
+	public int getFinalScore(int numFrames) {
+		return cumulScores[bowlIndex][numFrames-1];
+	}
 	public int getFinalScore() {
 		return cumulScores[bowlIndex][9];
 	}

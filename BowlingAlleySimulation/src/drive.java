@@ -9,13 +9,13 @@ public class drive {
 		
 		/* DB Oerations, run once at the beginnning if database not there */
 		
-//		CreateDB.connectDB();
-//		CreateDB.createBowlerTable();
-//		CreateDB.createScoreTable();
-//		CreateDB.createLanePatronTable();
-//		CreateDB.insertIntoBowlerTable();
+		CreateDB.connectDB();
+		CreateDB.createBowlerTable();
+		CreateDB.createScoreTable();
+		CreateDB.createLanePatronTable();
+		CreateDB.insertIntoBowlerTable();
 //		CreateDB.insertIntoScoreTable();
-//		CreateDB.insertIntoLanePatronTable(4, 6);
+		CreateDB.insertIntoLanePatronTable(4, 6);
 		
 		/************************Debug Codes********************************/
 //		CreateDB.updateLanePatronTable(4, 6);

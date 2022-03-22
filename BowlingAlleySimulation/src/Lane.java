@@ -132,6 +132,7 @@
  */
 
 import java.util.Vector;
+import static javax.swing.JOptionPane.showMessageDialog;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.HashMap;
@@ -159,7 +160,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	private int framesAllowed = 9;
 	private int highestPlayer;
 	private int secondHighestPlayer;
-	private boolean isFirstGame = true;
+	public boolean isFirstGame = true;
 
 	private int[] curScores;
 	private ScoreCalculator currentCumulScores;
@@ -169,6 +170,8 @@ public class Lane extends Thread implements PinsetterObserver {
 	private int gameNumber;
 	
 	private Bowler currentThrower;			// = the thrower who just took a throw
+	int firstScore = 0;
+	int secondScore = 0;
 	
 	/**
 	 * Lane()
@@ -197,10 +200,18 @@ public class Lane extends Thread implements PinsetterObserver {
 		this.start();
 	}
 
-	public Lane(int framesAllowed) {
+	public boolean isFirstGame() {
+		return isFirstGame;
+	}
+
+	public Lane(int framesAllowed,int firstScore,int secondScore) {
+		
 		this();
 		this.isFirstGame = false;
 		this.framesAllowed = framesAllowed - 1;
+		this.firstScore=firstScore;
+		this.secondScore=secondScore;
+		
 	}
 
 	/**
@@ -235,15 +246,27 @@ public class Lane extends Thread implements PinsetterObserver {
 					}
 					
 					if (frameNumber == this.framesAllowed) {
-						finalScores[bowlIndex][gameNumber] = currentCumulScores.getFinalScore();
+						
+						finalScores[bowlIndex][gameNumber] = currentCumulScores.getFinalScore(this.framesAllowed+1);
+						if (this.firstScore != 0) {
+							if(bowlIndex==0) { 
+								finalScores[bowlIndex][gameNumber]+=firstScore;
+							}else {
+								finalScores[bowlIndex][gameNumber]+=secondScore;
+							}
+						}
 						try{
 						Date date = new Date();
 							String dateString = "" + date.getHours() + ":" + date.getMinutes() + " " + date.getMonth()
 									+ "/" + date.getDay() + "/" + (date.getYear() + 1900);
 						String final_score=Integer.toString(currentCumulScores.getFinalScore());
+							if(this.firstScore!=0) {
+								final_score=Integer.toString(finalScores[bowlIndex][gameNumber]);
+							}
+							System.out.println(final_score);
 							ScoreHistoryFile.addScore(party.getPartyMemberNickname(currentThrower), dateString,
 									final_score);
-							CreateDB.deleteZeroScores();
+							//CreateDB.deleteZeroScores();
 						} catch (Exception e) {
 							System.err.println("Exception in addScore. " + e);
 						}
@@ -299,7 +322,7 @@ public class Lane extends Thread implements PinsetterObserver {
 					while (scoreIt.hasNext()){
 						Bowler thisBowler = (Bowler)scoreIt.next();
 						ScoreReport sr = new ScoreReport( curparty, thisBowler, finalScores[myIndex++], gameNumber );
-						sr.sendEmail(curparty.getPartyMemberEmail((thisBowler)));
+							//sr.sendEmail(curparty.getPartyMemberEmail((thisBowler)));
 						Iterator printIt = printVector.iterator();
 						while (printIt.hasNext()){
 							if (curparty.getPartyMemberNickname(thisBowler) == (String)printIt.next()){
@@ -354,6 +377,7 @@ public class Lane extends Thread implements PinsetterObserver {
 		// setter.ballThrown();
 		Random rand = new Random();
 		int randomNum = rand.nextInt((10 - 5) + 1) + 5;
+		showMessageDialog(null, "Second higest player scored "+randomNum+" in extra throw");
 		handleExtraChance(randomNum);
 	}
 
@@ -362,8 +386,7 @@ public class Lane extends Thread implements PinsetterObserver {
 		int secondHighestScore = cumulativeScores[secondHighestPlayer][9] + pinsDown;
 
 		if (highestScore > secondHighestScore) {
-			System.out.println("The second highest player is not able to cross the highest player");
-			System.out.println("So the game ends here");
+			showMessageDialog(null, "The second highest player is not able to cross the highest player and the game ended");
 			return;
 		}
 
@@ -372,11 +395,13 @@ public class Lane extends Thread implements PinsetterObserver {
 		partyNicks.add(((Bowler) bowlers.get(highestPlayer)).getNick());
 		partyNicks.add(((Bowler) bowlers.get(secondHighestPlayer)).getNick());
 
-		ControlDesk newControlDesk = new ControlDesk(1, 3);
-		ControlDeskView newCDV = new ControlDeskView(newControlDesk, 2);
+		ControlDesk extraControlDesk = new ControlDesk(1, 3, highestScore, secondHighestScore);
+		ControlDeskView extraCDV = new ControlDeskView(extraControlDesk, 2);
+		int num = 9;
 		ControlDeskSubscriber cdsExtra = new ControlDeskSubscriber();
-		cdsExtra.subscribe(newControlDesk, newCDV);
-		newControlDesk.addPartyQueue(partyNicks);
+		cdsExtra.subscribe(extraControlDesk, extraCDV);
+		num *= 2;
+		extraControlDesk.addPartyQueue(partyNicks);
 		return;
 
 	}

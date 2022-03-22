@@ -63,7 +63,7 @@ class ControlDesk extends Thread {
      *
      */
 
-	public ControlDesk(int numLanes, int framesAllowed) {
+	public ControlDesk(int numLanes, int framesAllowed,int firstScore,int secondScore) {
 		this.numLanes = numLanes;
 		lanes = new HashSet(numLanes);
 		partyQueue = new Queue();
@@ -72,7 +72,7 @@ class ControlDesk extends Thread {
 		//subscribers = new ControlDeskSubscriber();
 
 		for (int i = 0; i < numLanes; i++) {
-			lanes.add(new Lane(framesAllowed));
+			lanes.add(new Lane(framesAllowed,firstScore,secondScore));
 		}
 		
 		this.start();

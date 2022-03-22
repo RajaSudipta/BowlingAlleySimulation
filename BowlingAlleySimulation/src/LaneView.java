@@ -20,7 +20,8 @@ public class LaneView implements LaneObserver, ActionListener {
 	Vector bowlers;
 	int cur;
 	Iterator bowlIt;
-
+	int numFrames=10;
+	int numVal=23;
 	JPanel[][] balls;
 	JLabel[][] ballLabel;
 	JPanel[][] scores;
@@ -35,11 +36,15 @@ public class LaneView implements LaneObserver, ActionListener {
 	
 	JButton maintenance;
 	Lane lane;
+	private boolean ExtraGame=false;
 
 	public LaneView(Lane lane, int laneNum) {
 
 		this.lane = lane;
-
+		if(lane.isFirstGame()==false) {
+			this.numFrames=3;
+			this.numVal=9;
+		}
 		initDone = true;
 		frame = new JFrame("Lane " + laneNum + ":");
 		cpanel = frame.getContentPane();
@@ -73,16 +78,16 @@ public class LaneView implements LaneObserver, ActionListener {
 
 		panel.setLayout(new GridLayout(0, 1));
 
-		balls = new JPanel[numBowlers][23];
+		balls = new JPanel[numBowlers][this.numVal];
 		ballLabel = new JLabel[numBowlers][23];
-		scores = new JPanel[numBowlers][10];
-		scoreLabel = new JLabel[numBowlers][10];
-		emojiLabel = new JLabel[numBowlers][10];
-		ballGrid = new JPanel[numBowlers][10];
+		scores = new JPanel[numBowlers][this.numFrames];
+		scoreLabel = new JLabel[numBowlers][this.numFrames];
+		emojiLabel = new JLabel[numBowlers][this.numFrames];
+		ballGrid = new JPanel[numBowlers][this.numFrames];
 		pins = new JPanel[numBowlers];
 
 		for (int i = 0; i != numBowlers; i++) {
-			for (int j = 0; j != 23; j++) {
+			for (int j = 0; j != numVal; j++) {
 				ballLabel[i][j] = new JLabel(" ");
 				balls[i][j] = new JPanel();
 				balls[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -91,14 +96,14 @@ public class LaneView implements LaneObserver, ActionListener {
 		}
 
 		for (int i = 0; i != numBowlers; i++) {
-			for (int j = 0; j != 9; j++) {
+			for (int j = 0; j != numFrames-1; j++) {
 				ballGrid[i][j] = new JPanel();
 				ballGrid[i][j].setLayout(new GridLayout(0, 5));
 				ballGrid[i][j].add(new JLabel("  "), BorderLayout.EAST);
 				ballGrid[i][j].add(balls[i][2 * j], BorderLayout.EAST);
 				ballGrid[i][j].add(balls[i][2 * j + 1], BorderLayout.EAST);
 			}
-			int j = 9;
+			int j = numFrames-1;
 			ballGrid[i][j] = new JPanel();
 			ballGrid[i][j].setLayout(new GridLayout(0, 5));
 			ballGrid[i][j].add(balls[i][2 * j]);
@@ -109,10 +114,10 @@ public class LaneView implements LaneObserver, ActionListener {
 		for (int i = 0; i != numBowlers; i++) {
 			pins[i] = new JPanel();
 			pins[i].setBorder(BorderFactory.createTitledBorder(party.getPartyMemberNickname(((Bowler) bowlers.get(i)))));
-			pins[i].setLayout(new GridLayout(0, 11));
+			pins[i].setLayout(new GridLayout(0, this.numFrames));
 			
 			
-			for (int k = 0; k != 10; k++) {
+			for (int k = 0; k != this.numFrames; k++) {
 				scores[i][k] = new JPanel();
 				scoreLabel[i][k] = new JLabel("  ", SwingConstants.CENTER);
 				emojiLabel[i][k] = new JLabel("      ", SwingConstants.CENTER);

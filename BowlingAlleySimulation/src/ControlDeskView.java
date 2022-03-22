@@ -132,7 +132,10 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		colPanel.add(partyPanel, "West");
 
 		win.getContentPane().add("Center", colPanel);
-
+		if(controlDesk.ExtraGame==1) {
+			controlsPanel.setVisible(false);
+			partyPanel.setVisible(false);
+		}
 		win.pack();
 
 		/* Close program when this window closes */
