@@ -407,7 +407,8 @@ public class Lane extends Thread implements PinsetterObserver {
 		int index =  ( (frame - 1) * 2 + ball);
 
 		curScore = (int[]) scores.get(Cur);
-
+		//if (index==1 || index==2)
+		//	score = 0;
 		curScore[ index - 1] = score;
 		scores.put(Cur, curScore);
 		currentCumulScores.getScore(Cur, frame, ball, (int[]) scores.get(Cur));
