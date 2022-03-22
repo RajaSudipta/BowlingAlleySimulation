@@ -29,6 +29,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	private int maxMembers;
 	
 	private ControlDesk controlDesk;
+	private boolean ExtraGame = false;
 
 	/**
 	 * Displays a GUI representation of the ControlDesk
@@ -41,6 +42,8 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		this.maxMembers = maxMembers;
 		int numLanes = controlDesk.getNumLanes();
 
+		if(controlDesk.ExtraGame==1) this.ExtraGame=true;
+		
 		win = new JFrame("Control Desk");
 		win.getContentPane().setLayout(new BorderLayout());
 		((JPanel) win.getContentPane()).setOpaque(false);
@@ -135,6 +138,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		/* Close program when this window closes */
 		win.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
+				if(!ExtraGame)
 				System.exit(0);
 			}
 		});

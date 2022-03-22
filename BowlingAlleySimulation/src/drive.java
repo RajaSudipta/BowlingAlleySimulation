@@ -16,7 +16,6 @@ public class drive {
 //		CreateDB.insertIntoBowlerTable();
 //		CreateDB.insertIntoScoreTable();
 //		CreateDB.insertIntoLanePatronTable(4, 6);
-//		
 		
 		/************************Debug Codes********************************/
 //		CreateDB.updateLanePatronTable(4, 6);
@@ -36,6 +35,7 @@ public class drive {
 //		System.out.println("Mikex Lowest Score: " + ScoreHistoryFile.getLowestScoreByNickName("Mikex")); 
 		/*******************************************************************/
 		
+//		CreateDB.deleteZeroScores();
 		Vector v = CreateDB.getLanePatron();
 		
 		int numLanes = Integer.parseInt((String) v.get(0));

@@ -603,5 +603,26 @@ public class CreateDB {
 		return scoreVec;
 	}
 	
+	public static void deleteZeroScores() {
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+//			c = DriverManager.getConnection("jdbc:sqlite:myBlog.sqlite");
+			c = DriverManager.getConnection("jdbc:sqlite:bowlingAlley.db");
+			c.setAutoCommit(false);
+			System.out.println("Opened database successfully");
+			
+			stmt = c.createStatement();
+			String sql = "DELETE FROM score WHERE score=0";
+			stmt.executeUpdate(sql);
+	        c.commit();
+			c.close();
+			
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+	}
 	
 }
