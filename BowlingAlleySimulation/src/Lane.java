@@ -328,6 +328,9 @@ public class Lane extends Thread implements PinsetterObserver {
 		int max = 0, smax = 0, sind = 0, find = 0, i;
 		this.cumulativeScores = currentCumulScores.getCumulScores();
 		i = 0;
+		if (totalBowlers<=1) {
+			return;
+		}
 		while (i < totalBowlers) {
 			if (cumulativeScores[i][9] > max) {
 				smax = max;
