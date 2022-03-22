@@ -21,7 +21,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private JButton addParty, finished, assign;
+	private JButton addParty, finished, assign, configureBowlerPatron, showScoreStats;
 	private JFrame win;
 	private JList partyList;
 	
@@ -29,6 +29,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	private int maxMembers;
 	
 	private ControlDesk controlDesk;
+	private boolean ExtraGame = false;
 
 	/**
 	 * Displays a GUI representation of the ControlDesk
@@ -41,6 +42,8 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		this.maxMembers = maxMembers;
 		int numLanes = controlDesk.getNumLanes();
 
+		if(controlDesk.ExtraGame==1) this.ExtraGame=true;
+		
 		win = new JFrame("Control Desk");
 		win.getContentPane().setLayout(new BorderLayout());
 		((JPanel) win.getContentPane()).setOpaque(false);
@@ -50,20 +53,42 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
 		// Controls Panel
 		JPanel controlsPanel = new JPanel();
-		controlsPanel.setLayout(new GridLayout(3, 1));
+		controlsPanel.setLayout(new GridLayout(5, 1));
 		controlsPanel.setBorder(new TitledBorder("Controls"));
 
 		addParty = new JButton("Add Party");
 		addParty.addActionListener(this);
 		controlsPanel.add(UIComponents.getPanel(addParty));
 		
+		configureBowlerPatron= new JButton("Configure Bowler & Patron");
+		configureBowlerPatron.addActionListener(this);
+		controlsPanel.add(UIComponents.getPanel(configureBowlerPatron));
+		
 		assign = new JButton("Assign Lanes");
 		assign.addActionListener(this);
 		//controlsPanel.add(getPanel(assign));
 		
+		showScoreStats = new JButton("Show Score Statistics");
+		showScoreStats.addActionListener(this);
+		controlsPanel.add(UIComponents.getPanel(showScoreStats));
+
+		
 		finished = new JButton("Finished");
 		finished.addActionListener(this);
 		controlsPanel.add(UIComponents.getPanel(finished));
+		
+		//---- Show emoticon in the control panel screen
+		/* Path For Windows */
+		Icon gifIcon = new ImageIcon(this.getClass().getResource("images\\321GO.gif"));
+		/* Path For Linux */
+//		Icon gifIcon = new ImageIcon(this.getClass().getResource("images/321GO.gif"));
+		JPanel emojiPanel = new JPanel();
+		JLabel gifLabel = new JLabel(gifIcon);
+		emojiPanel.setLayout(new FlowLayout());
+		final JButton gifTest;
+		emojiPanel.add(gifLabel);
+		final JButton gifTest2;
+		controlsPanel.add(emojiPanel);
 		
 		
 		// Lane Status Panel
@@ -113,6 +138,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		/* Close program when this window closes */
 		win.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
+				if(!ExtraGame)
 				System.exit(0);
 			}
 		});
@@ -138,6 +164,15 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		if (e.getSource().equals(finished)) {
 			win.hide();
 			System.exit(0);
+		}
+		if (e.getSource().equals(configureBowlerPatron)) {
+//			System.out.println("Hello bowler patron change!!");
+			LanePatronJFrame lpf = new LanePatronJFrame();
+			lpf.start();
+		}
+		if (e.getSource().equals(showScoreStats)) {
+//			System.out.println("Hello score stats!!");
+			ShowScoreStats stat = new ShowScoreStats();
 		}
 	}
 
